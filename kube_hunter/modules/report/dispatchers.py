@@ -1,6 +1,7 @@
 import logging
 import os
 import requests
+import sys
 
 from kube_hunter.conf import config
 
@@ -41,3 +42,16 @@ class STDOUTDispatcher(object):
     def dispatch(self, report):
         logger.debug("Dispatching report via stdout")
         print(report)
+
+
+class FILEDispatcher(object):
+    def dispatch(self, report):
+        logger.debug("Dispatching report via python object")
+        dispatch_file = os.environ.get(
+            'KUBEHUNTER_FILE_DISPATCH_PATH',
+            'hunting.report'
+        )
+        with open(os.path.join(sys.path[0], dispatch_file), mode='w') as f:
+            full_report_path = f.name
+            f.write(report)
+            logger.info(f'Report was saved in "{full_report_path}"')

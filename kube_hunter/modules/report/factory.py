@@ -2,7 +2,7 @@ from kube_hunter.modules.report.json import JSONReporter
 from kube_hunter.modules.report.yaml import YAMLReporter
 from kube_hunter.modules.report.plain import PlainReporter
 from kube_hunter.modules.report.dispatchers import \
-    STDOUTDispatcher, HTTPDispatcher
+    STDOUTDispatcher, HTTPDispatcher, FILEDispatcher
 
 import logging
 logger = logging.getLogger(__name__)
@@ -15,7 +15,8 @@ reporters = {
 
 dispatchers = {
     'stdout': STDOUTDispatcher,
-    'http': HTTPDispatcher
+    'http': HTTPDispatcher,
+    'file': FILEDispatcher
 }
 
 
